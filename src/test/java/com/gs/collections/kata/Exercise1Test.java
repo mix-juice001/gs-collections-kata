@@ -18,10 +18,17 @@ package com.gs.collections.kata;
 
 import com.gs.collections.api.block.function.Function;
 import com.gs.collections.api.list.MutableList;
+import com.gs.collections.impl.block.factory.Predicates;
 import com.gs.collections.impl.list.mutable.FastList;
 import com.gs.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Exercise1Test extends CompanyDomainForKata
 {
@@ -34,7 +41,8 @@ public class Exercise1Test extends CompanyDomainForKata
          * Get the name of each of the company's customers.
          */
         MutableList<Customer> customers = this.company.getCustomers();
-        MutableList<String> customerNames = null;
+        MutableList<String> customerNames = this.company.getCustomers().collect(nameFunction);
+        List<String> customerNames1 = this.company.getCustomers().stream().map(customer -> customer.getName()).collect(Collectors.toList());
 
         MutableList<String> expectedNames = FastList.newListWith("Fred", "Mary", "Bill");
         Assert.assertEquals(expectedNames, customerNames);
@@ -43,11 +51,10 @@ public class Exercise1Test extends CompanyDomainForKata
     @Test
     public void getCustomerCities()
     {
-        /**
-         * Get the city for each of the company's customers.
+        /** * Get the city for each of the company's customers.
          */
         MutableList<Customer> customers = this.company.getCustomers();
-        MutableList<String> customerCities = null;
+        MutableList<String> customerCities = this.company.getCustomers().collect(Customer::getCity);
 
         MutableList<String> expectedCities = FastList.newListWith("London", "Liphook", "London");
         Assert.assertEquals(expectedCities, customerCities);
@@ -60,7 +67,8 @@ public class Exercise1Test extends CompanyDomainForKata
          * Which customers come from London? Get a collection of those which do.
          */
         MutableList<Customer> customers = this.company.getCustomers();
-        MutableList<Customer> customersFromLondon = null;
+        Predicates.attributeEqual(Customer::getCity, "London");
+        MutableList<Customer> customersFromLondon = this.company.getCustomers().select(customer -> customer.getCity().endsWith("London"));
         Verify.assertSize("Should be 2 London customers", 2, customersFromLondon);
     }
 }

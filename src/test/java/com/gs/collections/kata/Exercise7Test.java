@@ -18,11 +18,17 @@ package com.gs.collections.kata;
 
 import java.util.List;
 
+import com.gs.collections.api.list.MutableList;
 import com.gs.collections.api.map.MutableMap;
+import com.gs.collections.api.multimap.MutableMultimap;
 import com.gs.collections.api.multimap.list.MutableListMultimap;
+import com.gs.collections.impl.list.fixed.ArrayAdapter;
 import com.gs.collections.impl.list.mutable.FastList;
+import com.gs.collections.impl.list.mutable.ListAdapter;
 import com.gs.collections.impl.map.mutable.UnifiedMap;
+import com.gs.collections.impl.multimap.list.FastListMultimap;
 import com.gs.collections.impl.test.Verify;
+import com.gs.collections.impl.utility.ArrayIterate;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -35,7 +41,7 @@ public class Exercise7Test extends CompanyDomainForKata
     public void customersByCity()
     {
         // Notice that the second generic type is Customer, not List<Customer>
-        MutableListMultimap<String, Customer> multimap = null;
+        MutableListMultimap<String, Customer> multimap = this.company.getCustomers().groupBy(Customer.TO_CITY);
 
         Assert.assertEquals(FastList.newListWith(this.company.getCustomerNamed("Mary")), multimap.get("Liphook"));
         Assert.assertEquals(
@@ -48,30 +54,39 @@ public class Exercise7Test extends CompanyDomainForKata
     @Test
     public void mapOfItemsToSuppliers()
     {
-        Assert.fail("Refactor this as part of Exercise 7");
+//        Assert.fail("Refactor this as part of Exercise 7");
         /**
+         *
          * Change itemsToSuppliers to a MutableMultimap<String, Supplier>
          */
-        final MutableMap<String, List<Supplier>> itemsToSuppliers = UnifiedMap.newMap();
+//        final MutableMap<String, List<Supplier>> itemsToSuppliers = UnifiedMap.newMap();
 
-        for (Supplier supplier : this.company.getSuppliers())
-        {
-            for (String itemName : supplier.getItemNames())
-            {
-                List<Supplier> suppliersForItem;
-                if (itemsToSuppliers.containsKey(itemName))
-                {
-                    suppliersForItem = itemsToSuppliers.get(itemName);
-                }
-                else
-                {
-                    suppliersForItem = FastList.newList();
-                    itemsToSuppliers.put(itemName, suppliersForItem);
-                }
+        final MutableMultimap<String, Supplier> itemsToSuppliers = FastListMultimap.newMultimap();
+        ArrayIterate.forEach(this.company.getSuppliers(),
+            supplier ->
+                ArrayIterate.forEach(
+                        supplier.getItemNames(),
+                        itemName -> itemsToSuppliers.put(itemName, supplier)
+                )
+        );
 
-                suppliersForItem.add(supplier);
-            }
-        }
+
+//        MutableList<Supplier> suppliers = ArrayAdapter.adapt(this.company.getSuppliers());
+//        suppliers.groupByUniqueKey()
+
+//        for (Supplier supplier : this.company.getSuppliers()) {
+//            for (String itemName : supplier.getItemNames()) {
+//                List<Supplier> suppliersForItem;
+//                if (itemsToSuppliers.containsKey(itemName)) {
+//                    suppliersForItem = itemsToSuppliers.get(itemName);
+//                } else {
+//                    suppliersForItem = FastList.newList();
+//                    itemsToSuppliers.put(itemName, suppliersForItem);
+//                }
+//
+//                suppliersForItem.add(supplier);
+//            }
+//        }
         Verify.assertIterableSize("should be 2 suppliers for sofa", 2, itemsToSuppliers.get("sofa"));
     }
 

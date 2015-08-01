@@ -24,6 +24,8 @@ import com.gs.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.stream.Collectors;
+
 public class Exercise3Test extends CompanyDomainForKata
 {
     /**
@@ -33,7 +35,7 @@ public class Exercise3Test extends CompanyDomainForKata
     public void improveGetOrders()
     {
         // Delete this line - it's a reminder
-        Assert.fail("Improve getOrders() without breaking this test");
+//        Assert.fail("Improve getOrders() without breaking this test");
         Verify.assertSize(5, this.company.getOrders());
     }
 
@@ -43,8 +45,11 @@ public class Exercise3Test extends CompanyDomainForKata
     @Test
     public void findItemNames()
     {
-        MutableList<LineItem> allOrderedLineItems = null;
-        MutableSet<String> actualItemNames = null;
+//        MutableList<LineItem> allOrderedLineItems = this.company.getOrders().stream().flatMap(order -> order.getLineItems()).collect(Collectors.toList());
+        MutableList<LineItem> allOrderedLineItems = this.company.getOrders().flatCollect(order -> order.getLineItems());
+        //MutableSet<String> actualItemNames = allOrderedLineItems.collect(item -> item.getName(), UnifiedSet.newSet());
+//        MutableSet<String> actualItemNames = allOrderedLineItems.collect(item -> item.getName()).toSet();
+        MutableSet<String> actualItemNames = allOrderedLineItems.collect(item -> item.getName(), new UnifiedSet());
 
         Verify.assertInstanceOf(MutableSet.class, actualItemNames);
         Verify.assertInstanceOf(String.class, actualItemNames.getFirst());
@@ -58,9 +63,11 @@ public class Exercise3Test extends CompanyDomainForKata
     @Test
     public void findCustomerNames()
     {
-        MutableList<String> names = null;
+//        MutableList<String> names = this.company.getCustomers().collect(customer -> customer.getName());
+//        MutableList<String> names = this.company.getCustomers().collect(Customer::getName);
+        MutableList<String> names = this.company.getCustomers().collect(Customer.TO_NAME);
 
-        MutableList<String> expectedNames = FastList.newListWith("Fred", "Mary", "Bill");
+                MutableList < String > expectedNames = FastList.newListWith("Fred", "Mary", "Bill");
         Assert.assertEquals(expectedNames, names);
     }
 }
