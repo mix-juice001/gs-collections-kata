@@ -11,7 +11,7 @@ New concepts are introduced in the [slides](http://www.goldmansachs.com/gs-colle
 Make sure you read the instructor notes in the slides. In addition, you can refer to the [GS Collections Reference Guide](http://www.goldmansachs.com/gs-collections/documents/GS Collections Reference Guide 5.0.0.pdf) for further detail and examples of the API.
 
 
-ハンズオン資料
+## ハンズオン資料
 
 http://www.goldmansachs.com/gs-collections/documents/GS%20Collections%20Training%20Session%20and%20Kata%205.0.0.pdf
 GS Collections 使い方メモ（opengl-8080氏によるQiita投稿）
