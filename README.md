@@ -12,18 +12,17 @@ Make sure you read the instructor notes in the slides. In addition, you can refe
 
 
 ## ハンズオン資料
-
 http://www.goldmansachs.com/gs-collections/documents/GS%20Collections%20Training%20Session%20and%20Kata%205.0.0.pdf
-GS Collections 使い方メモ（opengl-8080氏によるQiita投稿）
 
+## GS Collections 使い方メモ（opengl-8080氏によるQiita投稿）
 http://qiita.com/opengl-8080/items/a13773e0653800e23323
-実例で学ぶGS Collections － Part 1/ Part2
 
+## 実例で学ぶGS Collections － Part 1/ Part2
 http://www.infoq.com/jp/articles/GS-Collections-by-Example-1
 http://www.infoq.com/jp/articles/GS-Collections-by-Example-2
-ゴールドマン・サックスのJavaへの取り組み（Java Day Tokyo 2015 講演資料）
 
+## ゴールドマン・サックスのJavaへの取り組み（Java Day Tokyo 2015 講演資料）
 http://www.goldmansachs.com/gs-collections/presentations/2015-04-08_JavaDayTokyo.pdf
-GS CollectionsとJava 8 ： 実用的で流暢なAPIで楽しい開発を！（JJUG CCC 2015 Spring 講演資料）
 
+## GS CollectionsとJava 8 ： 実用的で流暢なAPIで楽しい開発を！（JJUG CCC 2015 Spring 講演資料）
 http://www.goldmansachs.com/gs-collections/presentations/2015-04-11_JJUG_CCC.pdf
